@@ -14,8 +14,8 @@ jobs:
       run: |
         ISSUE_TITLE="${{ github.event.issue.title }}"
         ISSUE_URL="${{ github.event.issue.html_url }}"
-        RESPONSE=$(curl -X POST -d "issueTitle=$ISSUE_TITLE&issueUrl=$ISSUE_URL" 'https://script.google.com/macros/s/AKfycbz3hDVKQyBDCRYva1sLoiHXy4kp5SwhffB95oE9ufXawAvCAMtlZHqQPTXMC751hXRb/exec')
-        echo "doc_url=$RESPONSE" >> $GITHUB_ENV
+        RESPONSE=$(curl -s -X POST -d "issueTitle=$ISSUE_TITLE&issueUrl=$ISSUE_URL" 'https://script.google.com/macros/s/AKfycbzO1Vyf05VUIS9LDON1aeLRbp3IhWU7isen_5G1HULKNcCggIV2nR8LL1ipT7OApOeU/exec')
+        echo "doc_url=$(echo $RESPONSE | tail -n 1)" >> $GITHUB_ENV
 
     - name: Add comment with Google Doc link
       uses: peter-evans/create-or-update-comment@v1
