@@ -1,0 +1,23 @@
+name: Create Google Doc on Issue Creation
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create-google-doc:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Create Google Doc
+      id: create_doc
+      run: |
+        ISSUE_TITLE="${{ github.event.issue.title }}"
+        RESPONSE=$(curl -X POST -d "issueTitle=$ISSUE_TITLE" 'https://script.google.com/macros/s/AKfycbz3hDVKQyBDCRYva1sLoiHXy4kp5SwhffB95oE9ufXawAvCAMtlZHqQPTXMC751hXRb/exec')
+        echo "doc_url=$RESPONSE" >> $GITHUB_ENV
+
+    - name: Add comment with Google Doc link
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        issue-number: ${{ github.event.issue.number }}
+        body: "A Google Doc has been created for this issue: ${{ env.doc_url }}"
