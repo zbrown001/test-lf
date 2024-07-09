@@ -3,8 +3,6 @@ name: Create Google Doc on Issue Creation
 on:
   issues:
     types: [opened]
-env:
-  GITHUB_TOKEN: ${{ secrets.MY_API_TOKEN }}
 
 jobs:
   create-google-doc:
@@ -21,5 +19,6 @@ jobs:
     - name: Add comment with Google Doc link
       uses: peter-evans/create-or-update-comment@v1
       with:
+        token: ${{ secrets.MY_API_TOKEN }}
         issue-number: ${{ github.event.issue.number }}
         body: "A Google Doc has been created for this issue: ${{ env.doc_url }}"
