@@ -14,7 +14,7 @@ jobs:
       run: |
         ISSUE_TITLE="${{ github.event.issue.title }}"
         ISSUE_URL="${{ github.event.issue.html_url }}"
-        RESPONSE=$(curl -X POST -d "issueTitle=$ISSUE_TITLE&issueUrl=$ISSUE_URL" 'YOUR_GOOGLE_APPS_SCRIPT_URL')
+        RESPONSE=$(curl -X POST -d "issueTitle=$ISSUE_TITLE&issueUrl=$ISSUE_URL" 'https://script.google.com/macros/s/AKfycbz3hDVKQyBDCRYva1sLoiHXy4kp5SwhffB95oE9ufXawAvCAMtlZHqQPTXMC751hXRb/exec')
         echo "doc_url=$RESPONSE" >> $GITHUB_ENV
 
     - name: Add comment with Google Doc link
