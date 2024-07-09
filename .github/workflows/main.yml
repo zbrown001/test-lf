@@ -3,6 +3,8 @@ name: Create Google Doc on Issue Creation
 on:
   issues:
     types: [opened]
+env:
+  GITHUB_TOKEN: ${{ secrets.MY_API_TOKEN }}
 
 jobs:
   create-google-doc:
